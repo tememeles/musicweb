@@ -6,12 +6,12 @@ export default defineConfig({
   base: './', // ✅ Ensures relative asset paths for Netlify
   envDir: './', // Adjust path as needed
   preview: {
-    allowedHosts: ['*'],
+    allowedHosts: true,
     port: 3000,
     host: true,
   },
   server: {
-    allowedHosts: ['*'],
+    allowedHosts: true,
     port: 3000,
     host: true,
   },
