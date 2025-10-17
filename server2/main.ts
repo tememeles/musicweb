@@ -3,7 +3,13 @@ import express from "express";
 import apiRoutes from './routes/apiRoutes';
 import cors from "cors";
 import path from "path";
-require('dotenv').config();
+import runMigration from './run_migrations';
+import dotenv from 'dotenv';
+
+
+dotenv.config();
+
+
 
 const app = express()
 const PORT = 3002;
@@ -20,8 +26,11 @@ export const con = new Client(process.env.DATABASE_URL);
 app.use('/api', apiRoutes);
 
 con.connect()
-    .then(() => console.log("Connected to PostgreSQL database"))
-    .catch((err) => console.error("Connection error:", err));
+    .then(async () => {
+        console.log("Connected to PostgreSQL database");
+        await runMigration(con);
+    })
+    .catch((err: Error) => console.error("Connection error:", err));
 
 
 app.listen(PORT,'::', () => {
