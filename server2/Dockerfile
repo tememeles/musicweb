@@ -9,9 +9,6 @@ LABEL andasy_launch_runtime="Node.js"
 # Node.js app lives here
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV="production"
-
 # Install node modules
 COPY package-lock.json package.json ./
 RUN npm ci
