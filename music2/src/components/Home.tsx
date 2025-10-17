@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import UploadModal from './/UploadModal';
+import { apiUrl } from '../utils/api';
 
 interface Song {
   id: number;
@@ -11,6 +12,7 @@ interface Song {
   file_format: string;
   created_at: string;
 }
+
 
 const Home = () => {
   const [songs, setSongs] = useState<Song[]>([]);
@@ -24,10 +26,12 @@ const Home = () => {
     fetchSongs();
   }, []);
 
+  
+
   const fetchSongs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3002/api/songs');
+      const response = await fetch(apiUrl('/api/songs'));
       if (!response.ok) {
         throw new Error('Failed to fetch songs');
       }
@@ -207,7 +211,7 @@ const Home = () => {
                       controls
                       autoPlay
                       className="w-full h-8"
-                      src={`http://localhost:3002${song.audio_url}`}
+                      src={`${apiUrl(song.audio_url)}`}
                       onEnded={() => setCurrentlyPlaying(null)}
                     >
                       Your browser does not support the audio element.

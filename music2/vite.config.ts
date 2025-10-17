@@ -4,17 +4,15 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: './', // ✅ Ensures relative asset paths for Netlify
+  envDir: './', // Adjust path as needed
   preview: {
-    allowedHosts: ['music.andasy.dev']
-    
+    allowedHosts: ['*'],
+    port: 3000,
+    host: true,
   },
   server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000', // 👈 Your Express backend
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    allowedHosts: ['*'],
+    port: 3000,
+    host: true,
   },
 });

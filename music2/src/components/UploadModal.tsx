@@ -12,6 +12,8 @@ interface UploadModalProps {
   onUploadSuccess: () => void;
 }
 
+const apiurl = import.meta.env.VITE_BACKEND_URL;
+
 const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onUploadSuccess }) => {
   const [formData, setFormData] = useState<UploadFormData>({
     title: '',
@@ -122,7 +124,7 @@ const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onUploadSucc
       setUploading(true);
       setError(null);
       
-      const response = await fetch('http://localhost:3002/api/upload', {
+      const response = await fetch(new URL('/api/upload', apiurl), {
         method: 'POST',
         body: formDataToSend,
       });
